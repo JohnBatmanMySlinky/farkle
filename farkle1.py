@@ -105,7 +105,6 @@ def score_hand_pick_keepers(hand):
 
     return(hand, scores_winner, keepers_winner, resulting_hand)
 
-
 def play_one_farkle():
     hand = roll(6)
     print(score_hand_pick_keepers(hand))
