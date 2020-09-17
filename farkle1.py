@@ -1,10 +1,18 @@
 
 
+# WHY ARE THERE NO FUCKING ZERO'S??????
+# WHY ISN'T THIS FARKLING???
+# DESCRIBE DATAFRAME, SHOWS MIN == 50 ?????
+
+
+
 # i want a function / module that plays a hand
 # input is nothing
 # output is a score
 
 import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 from collections import Counter
 import pdb
 
@@ -97,16 +105,39 @@ def score_hand_pick_keepers(hand):
     resulting_hand = str_for_search
     for each in keepers_winner:
         resulting_hand = resulting_hand.replace(each,'')
-    assert len(keepers_winner) + len(resulting_hand) == 6
+    #assert len(keepers_winner) + len(resulting_hand) == 6
 
     # build in something like if you get 333114
     # so you keep 333 for 300
     # then what about those two 11s
+    # gotta build some manual logic here at the end for grabbing any extra 1s n 5s
 
     return(hand, scores_winner, keepers_winner, resulting_hand)
 
 def play_one_farkle():
     hand = roll(6)
-    print(score_hand_pick_keepers(hand))
+    return(score_hand_pick_keepers(hand))
 
-play_one_farkle()
+
+
+
+results = []
+for x in range(0,1000000):
+    results.append(play_one_farkle())
+
+    assert results[x][1] > 0
+
+    if x % 10000 == 0:
+        print(x)
+
+results_df = pd.DataFrame.from_records(results,
+                                       columns = ['hand', 'score', 'winners','keepers'])
+
+print(results_df.head(100))
+
+print(results_df.describe())
+
+
+plt.hist(results_df['score'],
+         bins = 50)
+plt.show()
