@@ -20,6 +20,8 @@ def roll(n):
     return([np.random.randint(1,6) for x in range(n)])
 
 def score_hand_pick_keepers(hand):
+    starting_hand_number = len(hand)
+
     str_for_search = ''.join([str(x) for x in hand])
 
     # score 1's and 5's naively
@@ -104,8 +106,8 @@ def score_hand_pick_keepers(hand):
     keepers_winner = keepers[scores.index(scores_winner)]
     resulting_hand = str_for_search
     for each in keepers_winner:
-        resulting_hand = resulting_hand.replace(each,'')
-    #assert len(keepers_winner) + len(resulting_hand) == 6
+        resulting_hand = resulting_hand.replace(str(each),'')
+    assert len(keepers_winner) + len(resulting_hand) == starting_hand_number
 
     # build in something like if you get 333114
     # so you keep 333 for 300
@@ -114,30 +116,42 @@ def score_hand_pick_keepers(hand):
 
     return(hand, scores_winner, keepers_winner, resulting_hand)
 
-def play_one_farkle():
-    hand = roll(6)
-    return(score_hand_pick_keepers(hand))
+
+def play_farkle():
+    running_score = 0
+    score = 1
+    re_roll = 6
+    while score > 0:
+        hand_in, score, keepers, hand_out = score_hand_pick_keepers(roll(re_roll))
+        running_score = running_score + score
+
+        if hand_out == '':
+            re_roll = 6
+        else:
+            re_roll = len(hand_out)
+    return(running_score)
 
 
 
-
-results = []
-for x in range(0,1000000):
-    results.append(play_one_farkle())
-
-    assert results[x][1] > 0
-
-    if x % 10000 == 0:
-        print(x)
-
-results_df = pd.DataFrame.from_records(results,
-                                       columns = ['hand', 'score', 'winners','keepers'])
-
-print(results_df.head(100))
-
-print(results_df.describe())
+print(play_farkle())
 
 
-plt.hist(results_df['score'],
-         bins = 50)
-plt.show()
+# results = []
+# for x in range(0,1):
+#     results.append(play_one_farkle())
+#
+#     assert results[x][1] > 0
+#
+#     if x % 10000 == 0:
+#         print(x)
+#
+# results_df = pd.DataFrame.from_records(results,
+#                                        columns = ['hand', 'score', 'winners','keepers'])
+#
+# print(results_df.head(100))
+#
+# print(results_df.describe())
+#
+# plt.hist(results_df['score'],
+#          bins = 50)
+# plt.show()
