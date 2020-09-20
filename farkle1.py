@@ -117,28 +117,40 @@ def score_hand_pick_keepers(hand):
     return(hand, scores_winner, keepers_winner, resulting_hand)
 
 
-def play_farkle():
+def play_farkle(accept_threshold, verbose = True):
     running_score = 0
     score = 1
     re_roll = 6
-    while score > 0:
+
+    while (score > 0) & (running_score < accept_threshold):
+        #roll dice, play farkle and update score
         hand_in, score, keepers, hand_out = score_hand_pick_keepers(roll(re_roll))
         running_score = running_score + score
 
+        #print results for checking
+        if verbose == True:
+            print(hand_in)
+            print(score)
+            print(keepers)
+
+        # set up for next roll
         if hand_out == '':
             re_roll = 6
         else:
             re_roll = len(hand_out)
+
+        running_score = running_score * (score != 0)
+
     return(running_score)
 
 
 
-print(play_farkle())
+print(play_farkle(500, True))
 
 
 # results = []
-# for x in range(0,1):
-#     results.append(play_one_farkle())
+# for x in range(0,10000):
+#     results.append(play_farkle(500))
 #
 #     assert results[x][1] > 0
 #
