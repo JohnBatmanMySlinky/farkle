@@ -145,7 +145,9 @@ def play_farkle(accept_threshold, verbose = True):
 
 
 
-print(play_farkle(500, True))
+
+if __name__ == '__main__':
+    print(play_farkle(500, True))
 
 
 # results = []
