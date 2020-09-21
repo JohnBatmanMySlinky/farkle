@@ -105,7 +105,7 @@ def score_hand_pick_keepers(hand):
     return(hand, scores_winner, keepers_winner, resulting_hand)
 
 
-def play_farkle(accept_threshold, verbose = True):
+def a_turn(accept_threshold, verbose = True):
     running_score = 0
     score = 1
     re_roll = 6
@@ -132,5 +132,9 @@ def play_farkle(accept_threshold, verbose = True):
     return(running_score)
 
 
+# build a function to play till you get 10k (or N points)
+# should return the number of turns it took
+
+
 if __name__ == '__main__':
-    print(play_farkle(500, True))
+    print(a_turn(500, True))
