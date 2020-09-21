@@ -2,8 +2,9 @@ from play_farkle import play_farkle
 import numpy as np
 import matplotlib.pyplot as plt
 
-sim_rounds = 10000
 
+# sim scores
+sim_rounds = 10000
 sim_means = []
 sim_stds = []
 for t in range(100,2100,100):
@@ -23,3 +24,10 @@ for t in range(100,2100,100):
 plt.plot(sim_means)
 plt.plot(sim_stds)
 plt.show()
+
+
+
+
+# sim number of rounds to win
+# I think that I should save off a histogram of # rounds to win for a given t
+# how to think about what strategy is optimal as a function of your opponent's strategies?
