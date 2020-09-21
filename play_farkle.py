@@ -1,15 +1,3 @@
-
-
-# WHY ARE THERE NO FUCKING ZERO'S??????
-# WHY ISN'T THIS FARKLING???
-# DESCRIBE DATAFRAME, SHOWS MIN == 50 ?????
-
-
-
-# i want a function / module that plays a hand
-# input is nothing
-# output is a score
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
