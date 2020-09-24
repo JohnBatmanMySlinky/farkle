@@ -127,9 +127,21 @@ def a_turn(accept_threshold, verbose = True):
         else:
             re_roll = len(hand_out)
 
+        # Re-roll Threshold
+        # build in seomting to continue rolling beyond threshold if you have
+        # all N dice to roll
+
         running_score = running_score * (score != 0)
 
     return(running_score)
+
+def play_game_of_farkle(accept_threshold, play_till = 10000, verbose = False):
+    total_score = 0
+    turn_counter = 0
+    while total_score < play_till:
+        turn_counter = turn_counter + 1
+        total_score = total_score + a_turn(accept_threshold, verbose = verbose)
+    return(turn_counter)
 
 
 # build a function to play till you get 10k (or N points)
@@ -137,4 +149,4 @@ def a_turn(accept_threshold, verbose = True):
 
 
 if __name__ == '__main__':
-    print(a_turn(500, True))
+    print(play_game_of_farkle(500, 10000, False))
